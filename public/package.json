@@ -1,0 +1,9 @@
+{
+  "family": "frontEndTool",
+  "name": "main",
+  "version": "0.0.1",
+  "spm": {
+    "output":["/js/main.js"]
+	}
+  
+}

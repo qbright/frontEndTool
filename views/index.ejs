@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body >
+  	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">前端工具箱</a>
+          <div class="nav-collapse collapse" style="height: 0px;">
+            <p class="navbar-text pull-right">
+             <!--  Logged in as <a href="#" class="navbar-link">Username</a> -->
+            </p>
+            <ul class="nav" id="nav_menu">
+              <li class="active" data-url="hint"><a href="#">校验</a></li>
+              <li data-url="concat"><a href="#about">合并</a></li>
+              <li data-url="compress"><a href="#contact">压缩</a></li>
+              <li data-url="build"><a href="#build">构建</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+	<div class="container" id="main_container" data-sid="<%= sid%>">
+	
+
+  </div>
+	<script type="text/javascript" src="/js/lib/sea.js"></script>
+  <script type="text/javascript" src="/js/lib/seajs-log.js"></script>
+	<script type="text/javascript" src="/js/lib/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/lib/template.min.js"></script>
+  <script type="text/javascript" src="/js/lib/template-syntax.js"></script>
+  <script type="text/javascript" src="/js/lib/jquery.uploadify.min.js"></script>
+    <script type="text/javascript">
+        seajs.config({
+          debug:true
+        });
+        seajs.use("/js/main");
+    </script>
+    <%- include template %>
+	</body>
+</html>

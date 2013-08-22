@@ -4,8 +4,10 @@ define(function(require, exports, module) {
 			var tempHtml;
 			if (tempId && data && jQueryTarget) {
 				tempHtml = template.render(tempId, data);
-				jQueryTarget.html(tempHtml);
-				callback && callback.call(this);
+				jQueryTarget.css("display","none");
+					jQueryTarget.html(tempHtml);
+					callback && callback.call(this);
+					jQueryTarget.fadeIn();
 			}
 		},
 		getSid: function() {

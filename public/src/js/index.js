@@ -3,7 +3,8 @@ define(function(require, exports, module) {
 	var hintView = require("./hintView"),
 		concatView = require("./concatView"),
 		buildView = require("./buildView"),
-		compressView = require("./compressView");
+		compressView = require("./compressView"),
+		common = require("./common");
 		
 	module.exports = {
 		initHome:function(){
@@ -12,8 +13,10 @@ define(function(require, exports, module) {
 
 		bindEvent:function(){
 			$("#nav_menu li").click(function(){
+
 				var $target = $(this),
 					url = $target.data("url");
+					common.progressStart();
 				switch(url){
 					case "hint": hintView.init();break;
 					case "concat":concatView.init();break;

@@ -3,7 +3,9 @@ define(function(require, exports, module) {
 	module.exports = {
 		init:function(){
 			seajs.log("compress");
-			common.render("compressView",$("#main_container"),{con:"hasdfasdfasf"});
+			common.render("compressView",$("#main_container"),{con:"hasdfasdfasf"},function(){
+				common.progressEnd();
+			});
 		}
 	};
 });

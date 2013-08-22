@@ -3,7 +3,9 @@ define(function(require, exports, module) {
 	module.exports = {
 		init:function(){
 			seajs.log("concat");
-			common.render("concatView",$("#main_container"),{con:"dafqweqweqe"});
+			common.render("concatView",$("#main_container"),{con:"dafqweqweqe"},function(){
+				common.progressEnd();
+			});
 		}
 	};
 });

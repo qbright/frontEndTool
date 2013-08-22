@@ -3,7 +3,9 @@ define(function(require, exports, module) {
 	module.exports = {
 		init:function(){
 			seajs.log("buildView");
-			common.render("buildView",$("#main_container"),{con:"helllllllooooo"});
+			common.render("buildView",$("#main_container"),{con:"helllllllooooo"},function(){
+				common.progressEnd();
+			});
 		}
 	};
 });

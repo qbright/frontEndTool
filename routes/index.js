@@ -26,6 +26,9 @@ module.exports = function(app, domain) {
 	app.get(domain + "/compress", function(req, res) {
 		res.end();
 	});
+	app.get(domain + "/download", function(req, res) {
+		common.writeZipToResponse("bfafac8c00fec94d577b","response.zip",res);
+	});
 	app.post(domain + "/file-upload", function(req, res, next) {
 	/*	if (!req.session.userid) {
 			console.log("create session");

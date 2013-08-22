@@ -1,14 +1,11 @@
 var crypto = require("crypto"),
 	fs = require("fs"),
 	path = require("path"),
-	EasyZip = require("easy-zip").EasyZip,
-	zip = new EasyZip(),
 	mkdirp = require("mkdirp"),
 	rmdir = require("rmdir"),
 	sep = path.sep,
-	WORKSPACE_PATH = "." + 　sep + "workspace" + sep,
-	UPLOAD_PATH = "." + sep + "uploads" + sep,
-	parentPath = path.resolve(WORKSPACE_PATH) + sep;
+	WORKSPACE_PATH = "workspace";
+require("node-zip");
 module.exports = {
 	/**
 	 * 生成随机数
@@ -24,7 +21,8 @@ module.exports = {
 	 * @return {[type]}
 	 */
 	generalWorkFolder: function(folderName) {
-		fs.mkdirSync(parentPath + folderName);
+		var workFolder = path.join(WORKSPACE_PATH, folderName);
+		fs.mkdirSync(workFolder);
 	},
 	/**
 	 * 删除工作文件夹
@@ -39,8 +37,8 @@ module.exports = {
 	 * @param  {[type]} folderName 文件夹名称
 	 * @return {[type]}
 	 */
-	rebuildWorkFolder: function(folderName,callback) {
-		clearWorkFolderRecursion(folderName, false,callback);
+	rebuildWorkFolder: function(folderName, callback) {
+		clearWorkFolderRecursion(folderName, false, callback);
 	},
 	/**
 	 * 加载配置文件
@@ -58,8 +56,8 @@ module.exports = {
 	 * @param  {[type]} userId   [session中的userId]
 	 * @return {[type]}          [description]
 	 */
-	handlerFile: function(tempPath, fileName, userId,res) {
-		this.rebuildWorkFolder(userId,function() {
+	handlerFile: function(tempPath, fileName, userId, res) {
+		this.rebuildWorkFolder(userId, function() {
 			var fileType = checkExpand(fileName);
 			if (fileType === 1) { //多文件文件,解压缩
 				unzip(tempPath, userId);
@@ -68,9 +66,26 @@ module.exports = {
 			} else {
 				//return false;
 			}
-			//return true;
 			res.end();
 		});
+	},
+	/**
+	 * 将工作路径下的文件打包发送到http响应中
+	 * @param  {[type]} workspace  工作文件夹
+	 * @param  {[type]} zipName    压缩包名称
+	 * @param  {[type]} res        http.Reponse
+	 * @return {[type]}           [description]
+	 */
+	writeZipToResponse: function(workspace, zipName, res) {
+		var zip = new JSZip(),
+			folderPath = path.join(WORKSPACE_PATH, workspace);
+		zipRecursion(folderPath, zip);
+		res.setHeader('Content-Disposition', 'attachment; filename="' + zipName + '"');
+		res.write(zip.generate({
+			base64: false,
+			compression: 'DEFLATE'
+		}), "binary");
+		res.end();
 	}
 };
 
@@ -86,7 +101,7 @@ function clearWorkFolderRecursion(folderName, isDelParent, callback) {
 	var targetPath = path.join(WORKSPACE_PATH, folderName);
 	rmdir(targetPath, function() {
 		if (!isDelParent) {
-			fs.mkdir(targetPath,function(){
+			fs.mkdir(targetPath, function() {
 				callback && callback();
 
 			});
@@ -112,19 +127,19 @@ function checkExpand(fileName) {
 
 /**
  * 解压上传的zip包
+ * @param  {[type]} zipName    源文件路径
  * @param  {[type]} folderName 工作路径
  * @return {[type]}            [description]
  */
 
 function unzip(zipName, folderName) {
-	require("node-zip");
 	var zipData_ = fs.readFileSync(zipName, "binary"),
 		zipData = new JSZip(zipData_, {
 			base64: false,
 			checkCRC32: true
 		}),
 		filenames = Object.getOwnPropertyNames(zipData.files),
-		folderName = WORKSPACE_PATH + folderName;
+		folderName = path.join(WORKSPACE_PATH, folderName);
 	filenames.forEach(function(filename) {
 		if (filename.substr(filename.length - 1) !== "/") {
 			var fileObj = zipData.files[filename],
@@ -142,21 +157,36 @@ function unzip(zipName, folderName) {
 	fs.unlink(zipName);
 }
 /**
- * 压缩文件,发回http.response 下载
- * @param  {[type]} zipName    压缩zip包名称
- * @param  {[type]} folderName 压缩的目标文件夹
- * @param  {[type]} res        http.response
+ * 递归遍历目标路径下的文件，构建zip包
+ * @param  {[type]} folderPath      目标路径
+ * @param  {[type]} zip           	JSZip 对象
+ * @param  {[type]} rootPath      	根路径,用于递归中使用，调用时不要传入
+ * @param  {[type]} rootPathLength 	根路径长度,用于递归中使用，调用时不要传入
  * @return {[type]}
  */
 
-function zip(zipName, folderName, res) {
-	var tmpPath = WORKSPACE_PATH + 　folderName;
-	var zip = new EasyZip();
-	zip.zipFolder(tmpPath, function() {
-		zip.writeToResponse(res, zipName);
-		res.end();
+function zipRecursion(folderPath, zip, rootPath, rootPathLength) {
+	var dirList = fs.readdirSync(folderPath),
+		rootPath = rootPath || folderPath;
+	if (!rootPathLength) {
+		rootPathLength = rootPath.length + 1;
+	}
+	dirList.forEach(function(item) {
+		var tempPath = path.join(folderPath, item),
+			subPath = tempPath.substr(rootPathLength);
+		if (fs.statSync(tempPath).isDirectory()) {
+			zip.folder(subPath);
+			zipRecursion(tempPath, zip, rootPath, rootPathLength);
+		} else {
+			var input = fs.readFileSync(path.join(rootPath, subPath), "binary");
+			zip.file(subPath, input, {
+				binary: true
+			});
+		}
 	});
 }
+
+
 /**
  * 复制重命名单文件
  * @param  {[type]}  tempPath   源文件路径

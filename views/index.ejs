@@ -3,7 +3,10 @@
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/js/lib/nprogress.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="/js/lib/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/lib/nprogress.js"> </script>
   </head>
   <body >
   	<div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,16 +39,21 @@
   </div>
 	<script type="text/javascript" src="/js/lib/sea.js"></script>
   <script type="text/javascript" src="/js/lib/seajs-log.js"></script>
-	<script type="text/javascript" src="/js/lib/jquery-2.0.3.min.js"></script>
+	
   <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/lib/template.min.js"></script>
   <script type="text/javascript" src="/js/lib/template-syntax.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.uploadify.min.js"></script>
-    <script type="text/javascript">
+  <script type="text/javascript">
+        NProgress.start();
         seajs.config({
           debug:true
         });
+        //NProgress.start();
+        setTimeout(function(){NProgress.done();}, 2000);
+         
         seajs.use("/js/main");
+
     </script>
     <%- include template %>
 	</body>

@@ -1,34 +1,61 @@
-define(function(require,exports,module){
+define(function(require, exports, module) {
 	module.exports = {
-		render:function(tempId,jQueryTarget,data,callback){
+		render: function(tempId, jQueryTarget, data, callback) {
 			var tempHtml;
-			if(tempId && data && jQueryTarget){
-				tempHtml = template.render(tempId,data);
+			if (tempId && data && jQueryTarget) {
+				tempHtml = template.render(tempId, data);
 				jQueryTarget.html(tempHtml);
 				callback && callback.call(this);
 			}
 		},
-		getSid:function(){
+		getSid: function() {
 			return $("#main_container").data("sid");
 		},
-		setFileName:function(fileName){
-			$("#main_container").data("filename",fileName);
+		setFileName: function(fileName) {
+			$("#main_container").data("filename", fileName);
 		},
-		getFileName:function(){
+		getFileName: function() {
 			return $("#main_container").data("filename");
 		},
-		ajaxDownload:function(url,data,method){
-			if(url && data){
-				data = typeof data == "string" ? data:$.param(data);
+		ajaxDownload: function(url, data, method) {
+			if (url && data) {
+				data = typeof data == "string" ? data : $.param(data);
 				var inputs = "";
-				$.each(data.split("&"),function(){
+				$.each(data.split("&"), function() {
 					var pair = this.split("=");
-					inputs +="<input type='hidden' name='"+ pair[0] +"' value='"+ pair[1] +"' />";
+					inputs += "<input type='hidden' name='" + pair[0] + "' value='" + pair[1] + "' />";
 				});
 				var form = "<form action='" + url + "' method='" + (method || "get") + "'>" + inputs + "</form>";
 				$(form).appendTo("body").submit().remove();
 			}
 
+		},
+		progressStart: function() {
+			NProgress.start();
+		},
+		progressEnd: function() {
+			NProgress.done();
+		},
+		initUpload: function(target, url, callback) {
+			var this_ = this;
+			target.uploadify({
+				"swf": "/js/lib/uploadify.swf",
+				"uploader": url,
+				"buttonText": "请选择文件",
+				"itemTemplate": "<div> </div> ",
+				"preventCaching": true,
+				"formData": {
+					sid: this_.getSid()
+				},
+				"onUploadSuccess": function(file) {
+					this_.progressEnd();
+					this_.setFileName(file.name);
+					callback && callback.call(this_, file);
+				},
+				"onUploadStart": function() {
+					this_.progressStart();
+				}
+			});
 		}
 	};
 });

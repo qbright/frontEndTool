@@ -19,6 +19,7 @@ module.exports = function(app, domain) {
 	});
 	app.get(domain + "/build", function(req, res) {
 		//res.download("frontEndTool.zip");
+
 	});
 	app.get(domain + "/concat", function(req, res) {s
 		res.end();
@@ -27,21 +28,15 @@ module.exports = function(app, domain) {
 		res.end();
 	});
 	app.get(domain + "/download", function(req, res) {
-		common.writeZipToResponse("bfafac8c00fec94d577b","response.zip",res);
+		var sid = req.query.sid,
+			fileName = req.query.fileName;
+		common.writeZipToResponse(sid,fileName,res);
 	});
 	app.post(domain + "/file-upload", function(req, res, next) {
-	/*	if (!req.session.userid) {
-			console.log("create session");
-			var buf = crypto.randomBytes(10).toString("hex");
-			req.session.userid = buf;
-		}*/
-		//console.log("1");
 		var sid = req.body.sid;
 		var fileInfo = req.files.Filedata;
 		var name = fileInfo.name;
 		common.handlerFile(fileInfo.path,fileInfo.name,sid,res);
-		
-		//res.end();
 
 	});
 };

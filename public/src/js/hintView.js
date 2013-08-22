@@ -3,7 +3,6 @@ define(function(require, exports, module) {
 	module.exports = {
 		init:function(){
 			var _this = this;
-			seajs.log("hint");
 			common.render("hintView",$("#main_container"),{},function(){
 				$("#fileupload").uploadify({
 					"swf":"/js/lib/uploadify.swf",
@@ -11,8 +10,19 @@ define(function(require, exports, module) {
 					"buttonText":"请选择文件",
 					"itemTemplate":"<div> </div> ",
 					"preventCaching":true,
-					"formData":{sid:common.getSid()}
+					"formData":{sid:common.getSid()},
+					"onUploadSuccess":function(file){
+						common.setFileName(file.name);
+					}
 				});
+			});
+			$("#download").click(function(){
+				var data = {
+					sid:common.getSid(),
+					fileName:common.getFileName()
+				};
+				common.ajaxDownload("download",data);
+				return false;
 			});
 
 

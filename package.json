@@ -12,6 +12,6 @@
     "mkdirp":"*",
     "fs-sync":"*",
     "rmdir":"*",
-    "socket.io":"*"
+    "socket.io":"*"  
   }
 }

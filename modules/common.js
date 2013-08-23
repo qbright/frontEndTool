@@ -79,6 +79,7 @@ module.exports = {
 	writeZipToResponse: function(workspace, zipName, res) {
 		var zip = new JSZip(),
 			folderPath = path.join(WORKSPACE_PATH, workspace);
+			zipName = zipName.substr(zipName.lastIndexOf(".") + 1) == "zip"? zipName : zipName + ".zip";
 		zipRecursion(folderPath, zip);
 		res.setHeader('Content-Disposition', 'attachment; filename="' + zipName + '"');
 		res.write(zip.generate({

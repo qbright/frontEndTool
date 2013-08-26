@@ -38,4 +38,5 @@ module.exports = function(app, domain) {
 	common.handlerFile(fileInfo.path, fileInfo.name, sid, res);
 
 	});
+
 };

@@ -37,6 +37,13 @@
 	
 
   </div>
+  <script type="text/javascript">
+        NProgress.configure({ 
+            ease: 'ease', 
+            speed: 300
+          });
+        NProgress.start();
+  </script>
 	<script type="text/javascript" src="/js/lib/sea.js"></script>
   <script type="text/javascript" src="/js/lib/seajs-log.js"></script>
 	
@@ -44,12 +51,9 @@
   <script type="text/javascript" src="/js/lib/template.min.js"></script>
   <script type="text/javascript" src="/js/lib/template-syntax.js"></script>
   <script type="text/javascript" src="/js/lib/jquery.uploadify.min.js"></script>
+  <script type="text/javascript" src="/js/lib/socket.io.min.js"></script>
   <script type="text/javascript">
-        NProgress.configure({ 
-            ease: 'ease', 
-            speed: 300
-          });
-        NProgress.start();
+        
         seajs.config({
           debug:true
         });

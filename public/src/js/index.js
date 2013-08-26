@@ -7,13 +7,20 @@ define(function(require, exports, module) {
 		common = require("./common");
 		
 	module.exports = {
+		
 		initHome:function(){
+			var host = "http://" + window.location.host;
 			this.bindEvent();
+			var socket = io.connect(host + "/socket");
+				 socket.on('emit', function (data) {
+   					 	console.log(data);
+  					});
+
+
 		},
 
 		bindEvent:function(){
 			$("#nav_menu li").click(function(){
-
 				var $target = $(this),
 					url = $target.data("url");
 					common.progressStart();

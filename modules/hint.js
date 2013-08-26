@@ -10,7 +10,10 @@ var jshintCli = require("jshint/src/cli"),
 		options.config = config;
 		
 	options.reporter = function(results,data){
-		hintResults = results;
+		results.forEach(function(result){
+			result.fileName = result.file.replace(path.join(WORKSPACE_PATH, process.argv[2]),".");
+			hintResults.push(result);
+		})
 	};
 	options.args = files;
 	jshintCli.run(options);

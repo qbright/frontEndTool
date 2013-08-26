@@ -4,17 +4,16 @@ define(function(require, exports, module) {
 		concatView = require("./concatView"),
 		buildView = require("./buildView"),
 		compressView = require("./compressView"),
-		common = require("./common");
+		common = require("./common"),
+		socket = require("./socket");
 		
 	module.exports = {
 		
 		initHome:function(){
 			var host = "http://" + window.location.host;
 			this.bindEvent();
-			var socket = io.connect(host + "/socket");
-				 socket.on('emit', function (data) {
-   					 	console.log(data);
-  					});
+			socket.registSocket(io.connect(host + "/socket"));
+				
 
 
 		},

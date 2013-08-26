@@ -4,7 +4,16 @@ define(function(require, exports, module) {
 		init: function() {
 			var _this = this;
 			common.render("hintView", $("#main_container"), {}, function() {
-				common.initUpload($("#fileupload"), "file-upload");
+				common.initUpload($("#fileupload"), "file-upload",function(){
+						$("#doHint").attr("disabled",false).removeClass("disabled");
+				});
+				$("#doHint").click(function(){
+					var data = {
+						sid:common.getSid(),
+						socketId:common.getSocketId()
+					};
+					common.ajaxRequest("jsHint",data);	
+				});
 				$("#download").click(function() {
 					var data = {
 						sid: common.getSid(),
@@ -13,7 +22,6 @@ define(function(require, exports, module) {
 					common.ajaxDownload("download", data);
 					return false;
 				});
-
 				common.progressEnd();
 			});
 

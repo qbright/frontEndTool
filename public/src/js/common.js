@@ -13,6 +13,9 @@ define(function(require, exports, module) {
 		getSid: function() {
 			return $("#main_container").data("sid");
 		},
+		getSocketId:function(){
+			return $("#main_container").data("socketid");
+		},
 		setFileName: function(fileName) {
 			$("#main_container").data("filename", fileName);
 		},
@@ -31,6 +34,21 @@ define(function(require, exports, module) {
 				$(form).appendTo("body").submit().remove();
 			}
 
+		},
+		ajaxRequest:function(url,data,type,cb){
+			var this_ = this;
+			$.ajax({
+				url:url,
+				type:type || "get",
+				data:data,
+				success:function(request){
+					cb && cb.call(this_,request);
+				},
+				error:function(error){
+					alert("出错！" + error);
+				}
+
+			});
 		},
 		progressStart: function() {
 			NProgress.start();

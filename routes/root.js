@@ -6,5 +6,5 @@ module.exports.regiest = function(app,domain){
 
 };
 module.exports.regiestSocket = function(io){
-	socket(io);
+	socket.regiestSocket(io);
 };

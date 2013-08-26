@@ -3,6 +3,7 @@ var crypto = require("crypto"),
 	path = require("path"),
 	mkdirp = require("mkdirp"),
 	rmdir = require("rmdir"),
+	child_process = require("child_process"),
 	sep = path.sep,
 	WORKSPACE_PATH = "workspace";
 require("node-zip");
@@ -47,7 +48,7 @@ module.exports = {
 	 */
 	loadConfig: function(name) {
 		var config = require("../config/default_config");
-		console.log(config);
+		return config[name] || {};	
 	},
 	/**
 	 * 处理上传文件
@@ -87,6 +88,20 @@ module.exports = {
 			compression: 'DEFLATE'
 		}), "binary");
 		res.end();
+	},
+	/**
+	 * 创建子进程执行cpu密集型操作
+	 * @param  {[type]}   module  执行的模块路径
+	 * @param  {array}   args    执行时参数
+	 * @param  {Function} cb      callback 
+	 * @return {[type]}          [description]
+	 */
+	swapCP:function(module,args,cb){
+		var cP = child_process.fork(module,args);
+		cP.on("message",function(result){
+			cb && cb(result);
+		})
+
 	}
 };
 

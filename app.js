@@ -18,7 +18,9 @@ app.set("strict routing", false);
 app.set("domain", "/frontEndTool");
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser({uploadDir:'./uploads'}));
+app.use(express.bodyParser({
+	uploadDir: './uploads'
+}));
 app.use(express.cookieParser());
 app.use(express.session({
 	secret:"frontEndTool",
@@ -31,12 +33,13 @@ app.use(express.static(path.join(__dirname, 'public/src')));
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler({
 		dumpExceptions: true,
-		showStack: true
+		showStack: true 
 	}));
 }
 var server = http.createServer(app);
 root.regiest(app, app.get("domain"));
 root.regiestSocket(io.listen(server).set("log level",2));
+
 server.listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
 });

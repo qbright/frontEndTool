@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 						$("#doHint").attr("disabled",false).removeClass("disabled");
 				});
 				$("#doHint").click(function(){
+					common.progressStart();
 					var data = {
 						sid:common.getSid(),
 						socketId:common.getSocketId()

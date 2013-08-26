@@ -36,22 +36,34 @@
     	</div>
     </div>
       <div class="span9">
-    	<div class="well hint-result">
-    		  <div class="alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Warning!</strong> Best check yo self, you're not looking too good.
-          </div>
-          <div class="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Warning!</strong> Best check yo self, you're not looking too good.
-          </div>
+    	<div class="well hint-result" id="hint-result">
           <div class="alert alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Warning!</strong> Best check yo self, you're not looking too good.
+            <strong>Congratulation!</strong> Without any errors
         </div>
-
     	</div>
     </div>
+
+</script>
+<script type="text/html" id="jsHintResult">
+{if list.length == 0}
+          <div class="alert alert-success">
+            <strong>Congratulation!</strong> Without any errors
+           </div>
+       {else}
+        {each list as result} 
+          <div class="alert alert-error" style="color:black;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="result-text">
+               <span class="title">File:</span>{result.fileName}  <span class="title">Line {result.error.line}:</span>
+                <code>{result.error.evidence}</code>
+            </span>
+            <br/>
+             <span class="result-text indent">
+                {result.error.reason}
+            </span>
+          </div>
+        {/each}
+    {/if}
 
 </script>
 <script type="text/html" id="concatView">

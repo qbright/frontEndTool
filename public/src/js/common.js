@@ -22,18 +22,8 @@ define(function(require, exports, module) {
 		getFileName: function() {
 			return $("#main_container").data("filename");
 		},
-		ajaxDownload: function(url, data, method) {
-			if (url && data) {
-				data = typeof data == "string" ? data : $.param(data);
-				var inputs = "";
-				$.each(data.split("&"), function() {
-					var pair = this.split("=");
-					inputs += "<input type='hidden' name='" + pair[0] + "' value='" + pair[1] + "' />";
-				});
-				var form = "<form action='" + url + "' method='" + (method || "get") + "'>" + inputs + "</form>";
-				$(form).appendTo("body").submit().remove();
-			}
-
+		download: function(url) {
+			window.open(url);
 		},
 		ajaxRequest:function(url,data,type,dataType,cb,async){
 			var this_ = this;

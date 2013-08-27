@@ -38,7 +38,7 @@ if ('development' == app.get('env')) {
 }
 var server = http.createServer(app);
 root.regiest(app, app.get("domain"));
-root.regiestSocket(io.listen(server).set("log level",2));
+root.regiestSocket(io.listen(server).set("log level",0));
 
 server.listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));

@@ -5,7 +5,6 @@ module.exports = function(app, domain) {
 		if (req.url.substr(req.url.length - 1) != "/") {
 			res.redirect("/frontEndTool/");
 		}
-		console.log(req.url);
 		var userSid = common.generalRandom(10);
 		common.generalWorkFolder(userSid);
 		res.render("index", {

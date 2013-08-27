@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 		concatView = require("./concatView"),
 		buildView = require("./buildView"),
 		compressView = require("./compressView"),
+		jsonEditorView = require("./jsonEditorView"),
 		common = require("./common"),
 		socket = require("./socket");
 
@@ -37,6 +38,9 @@ define(function(require, exports, module) {
 						break;
 					case "build":
 						buildView.init();
+						break;
+					case "jsonEditor":
+						jsonEditorView.init();
 						break;
 				}
 				$("#nav_menu li").removeClass("active");

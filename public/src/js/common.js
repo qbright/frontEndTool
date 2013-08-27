@@ -24,6 +24,7 @@ define(function(require, exports, module) {
 		},
 		download: function(url) {
 			window.open(url);
+
 		},
 		ajaxRequest:function(url,data,type,dataType,cb,async){
 			var this_ = this;

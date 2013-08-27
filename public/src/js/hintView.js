@@ -22,11 +22,7 @@ define(function(require, exports, module) {
 						common.ajaxRequest("jsHint", data, "post");
 					});
 					$("#download").click(function() {
-						var data = {
-							sid: common.getSid(),
-							fileName: common.getFileName()
-						};
-						common.ajaxDownload("download", data);
+						window.open("download?sid=" + common.getSid() +"&fileName=" + common.getFileName());
 						return false;
 					});
 					common.progressEnd();

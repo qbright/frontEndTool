@@ -31,7 +31,8 @@ define(function(require, exports, module) {
 					inputs += "<input type='hidden' name='" + pair[0] + "' value='" + pair[1] + "' />";
 				});
 				var form = "<form action='" + url + "' method='" + (method || "get") + "'>" + inputs + "</form>";
-				$(form).appendTo("body").submit().remove();
+
+				$(form).appendTo("body").submit();
 			}
 
 		},

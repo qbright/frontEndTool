@@ -6,38 +6,53 @@ define(function(require, exports, module) {
 		compressView = require("./compressView"),
 		common = require("./common"),
 		socket = require("./socket");
-		
+
 	module.exports = {
-		
-		initHome:function(){
+		socket: null,
+		initHome: function() {
 			var host = "http://" + window.location.host;
+			this.socket = io.connect(host + "/socket");
 			this.bindEvent();
-			socket.registSocket(io.connect(host + "/socket"));
-				
+			socket.registSocket(this.socket);
+
 
 
 		},
 
-		bindEvent:function(){
-			$("#nav_menu li").click(function(){
+		bindEvent: function() {
+			var this_ = this;
+			$("#nav_menu li").click(function() {
 				var $target = $(this),
 					url = $target.data("url");
-					common.progressStart();
-				switch(url){
-					case "hint": hintView.init();break;
-					case "concat":concatView.init();break;
-					case "compress":compressView.init();break;
-					case "build":buildView.init();break;
+				common.progressStart();
+				switch (url) {
+					case "hint":
+						hintView.init();
+						break;
+					case "concat":
+						concatView.init();
+						break;
+					case "compress":
+						compressView.init();
+						break;
+					case "build":
+						buildView.init();
+						break;
 				}
 				$("#nav_menu li").removeClass("active");
 				$target.addClass("active");
 			});
-/*
-			window.onbeforeunload = function(event){
-            	return confirm("确定退出吗"); 
-          	}*/
-
-          	hintView.init();
+			window.onbeforeunload = function() {
+					$.ajax({
+						url:"clean",
+						async:false,
+						beforeSend:function(){
+							socket.cleanSocket(this_.socket);
+						},
+						data:{sid:common.getSid()}
+					});
+			}
+			hintView.init();
 		}
 	};
 });

@@ -31,7 +31,7 @@ module.exports = {
 	 * @return {[type]}
 	 */
 	removeWorkFolder: function(folderName) {
-		removeWorkFolderRecursion(folderName, true);
+		clearWorkFolderRecursion(folderName, true);
 	},
 	/**
 	 * 清空工作文件夹
@@ -47,8 +47,10 @@ module.exports = {
 	 * @return {[type]}      [description]
 	 */
 	loadConfig: function(name) {
-		var config = require("../config/default_config");
-		return config[name] || {};	
+		if (name) {
+			var config = require("../config/default_config");
+			return config[name] || {};
+		}
 	},
 	/**
 	 * 处理上传文件
@@ -80,7 +82,7 @@ module.exports = {
 	writeZipToResponse: function(workspace, zipName, res) {
 		var zip = new JSZip(),
 			folderPath = path.join(WORKSPACE_PATH, workspace);
-			zipName = zipName.substr(zipName.lastIndexOf(".") + 1) == "zip"? zipName : zipName + ".zip";
+		zipName = zipName.substr(zipName.lastIndexOf(".") + 1) == "zip" ? zipName : zipName + ".zip";
 		zipRecursion(folderPath, zip);
 		res.setHeader('Content-Disposition', 'attachment; filename="' + zipName + '"');
 		res.write(zip.generate({
@@ -93,12 +95,12 @@ module.exports = {
 	 * 创建子进程执行cpu密集型操作
 	 * @param  {[type]}   module  执行的模块路径
 	 * @param  {array}   args    执行时参数
-	 * @param  {Function} cb      callback 
+	 * @param  {Function} cb      callback
 	 * @return {[type]}          [description]
 	 */
-	swapCP:function(module,args,cb){
-		var cP = child_process.fork(module,args);
-		cP.on("message",function(result){
+	swapCP: function(module, args, cb) {
+		var cP = child_process.fork(module, args);
+		cP.on("message", function(result) {
 			cb && cb(result);
 		})
 

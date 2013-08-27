@@ -35,12 +35,15 @@ define(function(require, exports, module) {
 			}
 
 		},
-		ajaxRequest:function(url,data,type,cb){
+		ajaxRequest:function(url,data,type,dataType,cb,async){
 			var this_ = this;
 			$.ajax({
 				url:url,
 				type:type || "get",
 				data:data,
+				dataType:dataType||"html",
+				async:async || true,
+				cache:false,
 				success:function(request){
 					cb && cb.call(this_,request);
 				},

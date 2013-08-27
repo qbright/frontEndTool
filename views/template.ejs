@@ -1,27 +1,20 @@
 <script type="text/html" id="hintView">
 	<div class="span3">
           <div class="well sidebar-nav">
+           <form id="jsHintRuleForm">
             <ul class="nav nav-list hintConfig-nav">
-              <li class="nav-header">Sidebar</li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li class="nav-header">Sidebar</li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li class="nav-header">Sidebar</li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	  <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-              <li><label class="checkbox"><input type="checkbox" value=""> Option one </label></li>
-           	
+              <li class="nav-header"><a href="http://www.jshint.com/docs/options/" target="_blank">校验规则</a></li>
+
+              {each list}
+              <li><label class="checkbox"><input type="checkbox" name="{$index}" 
+                 {if $value == true}
+                  checked
+                    {/if}
+              >{$index}</label></li>
+                  
+                {/each}          	
             </ul>
+            </form>
           </div><!--/.well -->
     </div>	
 

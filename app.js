@@ -23,7 +23,7 @@ app.use(express.bodyParser({
 }));
 app.use(express.cookieParser());
 app.use(express.session({
-	secret:"frontEndTool",
+	secret : "frontEndTool"
 }));
 app.use(express.methodOverride());
 app.use(app.router);

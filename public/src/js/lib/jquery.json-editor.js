@@ -1,41 +1,3 @@
-/*
-  Copyright (c) 2013, Andrew Cantino
-  Copyright (c) 2009, Andrew Cantino & Kyle Maxwell
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy
-  of this software and associated documentation files (the "Software"), to deal
-  in the Software without restriction, including without limitation the rights
-  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  copies of the Software, and to permit persons to whom the Software is
-  furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included in
-  all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  THE SOFTWARE.
-
-
-
-
-  You will probably need to tell the editor where to find its add and delete images.  In your
-  code before you make the editor, do something like this:
-     JSONEditor.prototype.ADD_IMG = '/javascripts/jsoneditor/add.png';
-     JSONEditor.prototype.DELETE_IMG = '/javascripts/jsoneditor/delete.png';
-
-  You can enable or disable visual truncation in the structure editor with the following:
-    myEditor.doTruncation(false);
-    myEditor.doTruncation(true); // The default
-
-  You can show a 'w'ipe button that does a more aggressive delete by calling showWipe(true|false) or by passing in 'showWipe: true'.
-*/
-
-
 function JSONEditorBase(options) {
   if (!options) options = {};
   this.builderShowing = true;
@@ -96,7 +58,7 @@ JSONEditor.prototype.bracketUI = function(key, struct) {
 
 JSONEditor.prototype.deleteUI = function(key, struct, fullDelete) {
   var self = this;
-  return $('<a class="icon" href="#" title="delete"><img src="' + this.DELETE_IMG + '" border=0/></a>').click(function(e) {
+  return $('<a class="icon" href="#" title="delete"><i class="icon-minus"></i></a>').click(function(e) {
     if (!fullDelete) {
       var didSomething = false;
       if (struct[key] instanceof Array) {
@@ -141,7 +103,7 @@ JSONEditor.prototype.wipeUI = function(key, struct) {
 
 JSONEditor.prototype.addUI = function(struct) {
   var self = this;
-  return $('<a class="icon" href="#" title="add"><img src="' + this.ADD_IMG + '" border=0/></a>').click(function(e) {
+  return $('<a class="icon" href="#" title="add"><i class="icon-plus"></i></a>').click(function(e) {
     if (struct instanceof Array) {
       struct.push('??');
     } else {

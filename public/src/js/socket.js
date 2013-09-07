@@ -13,6 +13,14 @@ define(function(require, exports, module) {
 					common.progressEnd();
 				});
 			});
+
+			socket.on("finishJsDoc",function(data){
+				$("#arrayTwo i").each(function(index){
+					$($("#arrayTwo i")[index]).removeClass("icon-white");
+				});
+				$("#downloadDoc").attr("disabled", false).removeClass("disabled");
+				common.progressEnd();
+			})
 		},
 		cleanSocket:function(socket){
 			socket.emit("cleanSocket",{socketId:common.getSocketId()});

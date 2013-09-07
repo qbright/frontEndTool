@@ -1,7 +1,5 @@
 var sockets = {};
 module.exports = {
-
-
 	regiestSocket: function(io) {
 		io.of("/socket").on("connection", function(socket) {
 			sockets[socket.id] = socket;

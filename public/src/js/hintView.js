@@ -4,12 +4,19 @@ define(function(require, exports, module) {
 		init: function() {
 			var _this = this;
 			var callback = function(response) {
+				var tmp = [];
+					tmp.length = 15;
 				var data = {
-					list: response
+					list: response,
+					tmpList:tmp
 				};
 
-				common.render("hintView", $("#main_container"), data || {}, function() {
+				common.render("hintView", $("#main_container"), data, function() {
+
 					common.initUpload($("#fileupload"), "file-upload", function() {
+						$("#hintContainer i").each(function(index){
+								$($("#hintContainer i")[index]).removeClass("icon-white");
+						});
 						$("#doHint").attr("disabled", false).removeClass("disabled");
 					});
 					$("#doHint").click(function() {

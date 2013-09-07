@@ -1,3 +1,4 @@
+
 function JSONEditorBase(options) {
   if (!options) options = {};
   this.builderShowing = true;
@@ -20,7 +21,7 @@ function JSONEditor(wrapped, width, height) {
   this.container = $(this.wrapped.parent());
   this.container.width(width).height(height);
   this.wrapped.width(width).height(height);
-  //this.wrapped.hide();
+  this.wrapped.hide();
   this.container.css("position", "relative");
   this.doAutoFocus = false;
   this.editingUnfocused();
@@ -31,7 +32,7 @@ function JSONEditor(wrapped, width, height) {
   	$(this).children('textarea').height(self.container.height() - self.functionButtons.height() - 5);
   	$(this).children('.builder').height(self.container.height() - self.functionButtons.height() - 10);
   });
-
+  this.functionButtons();
   return this;
 }
 JSONEditor.prototype = new JSONEditorBase();
@@ -139,7 +140,7 @@ JSONEditor.prototype.showBuilder = function() {
     this.builder.show();
     return true;
   } else {
-    alert("Sorry, there appears to be an error in your JSON input.  Please fix it before continuing.");
+    alert("您输入的json文本有误，请检查！");
     return false;
   }
 };
@@ -161,29 +162,49 @@ JSONEditor.prototype.toggleBuilder = function() {
 };
 
 JSONEditor.prototype.showFunctionButtons = function(insider) {
-  if (!insider) this.functionButtonsEnabled = true;
-  if (this.functionButtonsEnabled) if (!this.functionButtons) {
-    this.functionButtons = $('<div class="function_buttons"></div>');
-    var self = this;
-    this.functionButtons.append($('<a href="#" style="padding-right: 10px;"></a>').click(function() {
-      self.undo();
-      return false;
-    }).text('Undo')).append($('<a href="#" style="padding-right: 10px;"></a>').click(function() {
-      self.redo();
-      return false;
-    }).text('Redo')).append($('<a id="toggle_view" href="#" style="padding-right: 10px;"></a>').click(function() {
-      self.toggleBuilder();
-      return false;
-    }).text('Toggle View').css("float", "right"));
-    this.container.prepend(this.functionButtons);
-    this.container.height(this.container.height() + this.functionButtons.height() + 5);
-  }
-  if (this.functionButtons) {
-    this.wrapped.css('top', this.functionButtons.height() + 5 + 'px');
-    this.builder.css('top', this.functionButtons.height() + 5 + 'px');
-  }
-};
 
+ /*  if (!insider) {
+       this.functionButtonsEnabled = true;
+    }
+        if (this.functionButtonsEnabled) {
+              var this_ = this;
+              $("#undo").click(function(){
+                  this_.undo();
+                  return false;
+              });
+              $("#redo").click(function(){
+                  this_.redo();
+                  return false;
+              });
+              $("#toggleView").click(function(){
+                  this_.toggleBuilder();
+                  return false;
+              });
+        }
+*/
+};
+JSONEditor.prototype.functionButtons = function(){
+  var this_ = this;
+  $("#undo").click(function() {
+    this_.undo();
+    return false;
+  });
+  $("#redo").click(function() {
+    this_.redo();
+    return false;
+  });
+  $("#toggleView").click(function() {
+    this_.toggleBuilder();
+    return false;
+  });
+  var clip = new ZeroClipboard($("#copy-button"),{
+    moviePath:"/js/lib/ZeroClipboard.swf"
+  });
+  clip.on( 'mousedown', function(client) {
+     $("#copy-button").data("clipboard-text",$("#jsonEditorContainer").val()); 
+      client.setText($("#copy-button").data("clipboard-text"));
+  });
+};
 JSONEditor.prototype.saveStateIfTextChanged = function() {
   if (JSON.stringify(this.json, null, 2) != this.wrapped.get(0).value) {
     if (this.checkJsonInText()) {
@@ -370,7 +391,7 @@ JSONEditor.prototype.showWipe = function(trueOrFalse) {
 
 JSONEditor.prototype.truncate = function(text, length) {
   if (text.length == 0) return '-empty-';
-  if(this._doTruncation && text.length > (length || 30)) return(text.substring(0, (length || 30)) + '...');
+  if(this._doTruncation && text.length > (length || 200)) return(text.substring(0, (length || 200)) + '...');
   return text;
 };
 
@@ -487,7 +508,6 @@ JSONEditor.prototype.build = function(json, node, parent, key, root) {
     bq.append($('<div class="bracers">}</div>'));
     node.append(bq);
   } else {
-    console.log(json);
     elem = this.editable(json.toString(), key, parent, root, 'value').wrap('<span class="val"></span>').parent();
     node.append(elem);
     node.prepend(this.braceUI(key, parent));

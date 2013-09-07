@@ -50,5 +50,11 @@ module.exports = function(app, domain) {
 			fileInfo = req.files.Filedata;
 		common.handlerFile(fileInfo.path, fileInfo.name, sid, res);
 	});
+	app.get(domain + "/generalJsDoc",function(req,res,next){
+		common.swapCP("./modules/jsDoc", [req.query.sid], function(result) {
+			socket.emitEvent(req.query.socketId, "finishJsDoc");
+		});
+		res.end();
+	});
 
 };

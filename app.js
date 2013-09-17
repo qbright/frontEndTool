@@ -7,7 +7,9 @@ var express = require('express'),
 	http = require('http'),
 	path = require('path'),
 	io = require("socket.io"),
-	root = require("./routes/root");
+	root = require("./routes/root"),
+	cluster = require("cluster"),
+	numCpus = require("os").cpus().length;
 
 var app = express();
 // all environments
@@ -23,7 +25,7 @@ app.use(express.bodyParser({
 }));
 app.use(express.cookieParser());
 app.use(express.session({
-	secret : "frontEndTool"
+	secret: "frontEndTool"
 }));
 app.use(express.methodOverride());
 app.use(app.router);
@@ -33,14 +35,23 @@ app.use(express.static(path.join(__dirname, 'public/src')));
 if ('development' == app.get('env')) {
 	app.use(express.errorHandler({
 		dumpExceptions: true,
-		showStack: true 
+		showStack: true
 	}));
 }
 var server = http.createServer(app);
 root.regiest(app, app.get("domain"));
-root.regiestSocket(io.listen(server).set("log level",0));
+root.regiestSocket(io.listen(server).set("log level", 0));
 
-server.listen(app.get('port'), function() {
-	console.log('Express server listening on port ' + app.get('port'));
-});
 
+if (cluster.isMaster) {
+	for (var i = 0; i < numCpus; i++) {
+		cluster.fork();
+	}
+	/*cluster.on('exit', function(worker, code, signal) {
+		console.log('worker ' + worker.process.pid + ' died');
+	});*/
+} else {
+	server.listen(app.get('port'), function() {
+		console.log('Express server listening on port ' + app.get('port'));
+	});
+}

@@ -87,7 +87,7 @@ module.exports = {
 		res.setHeader('Content-Disposition', 'attachment; filename="' + zipName + '"');
 		res.write(zip.generate({
 			base64: false,
-			compression: 'DEFLATE'
+			compression: 'STORE'//不进行压缩，只做打包，不然一些特殊文件压缩后会报错
 		}), "binary");
 		res.end();
 	},
@@ -196,7 +196,7 @@ function zipRecursion(folderPath, zip, rootPath, rootPathLength) {
 			zip.folder(subPath);
 			zipRecursion(tempPath, zip, rootPath, rootPathLength);
 		} else {
-			var input = fs.readFileSync(path.join(rootPath, subPath), "binary");
+			var input = fs.readFileSync(path.join(rootPath, subPath),"binary");
 			zip.file(subPath, input, {
 				binary: true
 			});

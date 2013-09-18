@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 app.set("strict routing", false);
 app.set("domain", "/frontEndTool");
 app.use(express.favicon());
-app.use(express.logger('dev'));
+//app.use(express.logger('dev'));
 app.use(express.bodyParser({
 	uploadDir: './uploads'
 }));

@@ -128,17 +128,20 @@ function clearWorkFolderRecursion(folderName, isDelParent, callback) {
 }
 /**
  * 判断文件后缀名
- * @return {[type]} [1 为 zip包 ，2 为 单文件,0为不合法文件]
+ * @return {Number} [1 为 zip包 ，2 为 单文件,0为不合法文件]
  */
 
 function checkExpand(fileName) {
+    var ZIP_FILE = 1,
+        SINGLE_FILE = 2,
+        INVALID_FILE = 0;
 	var expand = fileName.substr(fileName.lastIndexOf(".") + 1).toLowerCase();
 	if (expand === "zip") {
-		return 1;
+		return ZIP_FILE;
 	} else if (expand !== "js" && expand !== "css" && expand !== "html") {
-		return 0;
+		return SINGLE_FILE;
 	} else {
-		return 2;
+		return INVALID_FILE;
 	}
 }
 

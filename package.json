@@ -1,25 +1,21 @@
 {
-    "name": "frontEndTool",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "start": "node app.js"
-    },
-    "dependencies": {
-        "express": "3.3.4",
-        "ejs": "*",
-        "node-zip":"*",
-        "mkdirp":"*",
-        "fs-sync":"*",
-        "rmdir":"*",
-        "socket.io":"*",
-        "jshint":"*",
-        "doxmate":"*",
-        "filesize":"*",
-        "chalk":"*",
-        "optipng-bin":"*",
-        "pngquant-bin":"*",
-        "jpegtran-bin":"*",
-        "gifsicle":"*"
-    }
+  "name": "frontEndTool",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.3.4",
+    "ejs": "*",
+    "node-zip":"*",
+    "mkdirp":"*",
+    "fs-sync":"*",
+    "rmdir":"*",
+    "socket.io":"*",
+    "jshint":"*",
+    "doxmate":"*",
+    "grunt-contrib-imagemin":"*",
+    "imagemin":"*"
+  }
 }

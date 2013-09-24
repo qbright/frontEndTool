@@ -107,8 +107,31 @@
                 <button class="btn btn-primary disabled" id="downloadDoc" disabled>下载文档</button>
         </div>
         <div class="span12 well">
-              asdfasdfasdfas
-              <a href="#" id="test">adfaf</a>
+               <h3>文档生成说明(暂定)</h3>
+                   <p class="lead indent">将需要生成文档的js文件放入 ‘lib’ 文件夹中 ,配置文件package.json、 文档文件 README.md 与lib文件夹同级，
+                   将 lib、package.json、README.md打成zip包,即可上传生成文档</p>
+                   <p class="lead indent">注: 请确保解压完package.json、README.md在根目录</p>
+               <h3>package.json格式说明</h3>
+                   <p class="lead indent">package.json 需要包含以下元素 : </p>
+                   <p class="indent">
+                       <code>"name": "XXX", </code><br>
+                       <code> "version": "0.0.0", </code><br>
+                       <code> "description": "XXX", </code><br>
+                       <code> "author": "XXXX" </code><br>
+                   </p>
+                   <p class="lead indent">注:请确保json格式正确 </p>
+               <h3>README.md格式说明</h3>
+                    <p class="lead indent">具体使用方法 <a href="http://wowubuntu.com/markdown/" target="_blank">http://wowubuntu.com/markdown/</a></p>
+                    <p class="lead indent">常用说明:</p>
+                    <p class="lead indent">
+                        <code> 大标题 </code><br>
+                        <code>========================= // 使用" === " 分割大标题</code><br>
+                        <code>## 章节标题   // 使用"##" 表示章节标题，作为侧边栏菜单,章节标题下面为章节的内容,直到下一个 "##" 结束</code><br>
+                        <code>```</code><br>
+                        <code>代码 //使用 "```" 之间显示代码</code><br>
+                        <code>```</code><br>
+                        <code><http://XXXXXXX>  // 使用 "<>" 包含链接</code><br>
+                    </p>
         </div>
     </div>
 

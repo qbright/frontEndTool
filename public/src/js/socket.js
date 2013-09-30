@@ -30,6 +30,15 @@ define(function(require, exports, module) {
                 common.progressEnd();
             });
 
+            socket.on("finishConcat",function(){
+                $("#arrayTwo i").each(function(index){
+                    $($("#arrayTwo i")[index]).removeClass("icon-white");
+                });
+                $("#downloadConcat").attr("disabled", false).removeClass("disabled");
+                common.progressEnd();
+            });
+
+
 
 		},
 		cleanSocket:function(socket){

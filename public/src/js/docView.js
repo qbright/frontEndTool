@@ -20,7 +20,7 @@ define(function(require, exports, module) {
 						common.progressStart();
 						var data = {
 							sid: common.getSid(),
-							socketId: common.getSocketId(),
+							socketId: common.getSocketId()
 						};
 						common.ajaxRequest("generalJsDoc", data);
 					});

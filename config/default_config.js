@@ -25,25 +25,23 @@ hintDefaultConfig = {
 
 
 compressDefaultConfig = {
-   "sequences":false,
-   "properties":false,
-   "dead_code":false,
-    "drop_debugger":false,
-    "unsafe":false,
-    "conditionals":false,
-    "comparisons":false,
-    "evaluate":false,
-    "booleans":false,
-    "loops":false,
-    "unused":false,
-    "hoist_funs":false,
-    "hoist_vars":false,
-    "if_return":false,
-    "join_vars":false,
-    "cascade":false,
-    "warnings":false,
-    "megate_iife":false
-
+    "sequences":false,
+        "properties":false,
+        "dead_code":false,
+        "drop_debugger":false,
+        "unsafe":false,
+        "conditionals":false,
+        "comparisons":false,
+        "evaluate":false,
+        "booleans":false,
+        "loops":false,
+        "unused":false,
+        "hoist_funs":false,
+        "hoist_vars":false,
+        "if_return":false,
+        "join_vars":false,
+        "cascade":false,
+        "warnings":false
 }
 
 exports.hintOption = hintOption;

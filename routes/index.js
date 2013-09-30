@@ -32,6 +32,11 @@ module.exports = function(app, domain) {
 
 	});
 	app.get(domain + "/concat", function(req, res) {
+        console.log("concat");
+        common.swapCP("./modules/concat",[req.query.sid],function(result){
+            console.log(result);
+            socket.emitEvent(req.query.socketId,"finishConcat");
+        });
 		res.end();
 	});
 	app.post(domain + "/compress", function(req, res) {

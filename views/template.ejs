@@ -63,9 +63,37 @@
     {/if}
 
 </script>
+
+
+
+
 <script type="text/html" id="concatView">
-      <h1>bb{ con}</h1>
+      <div class="container">
+                    <div class="span12 well" id="docHandler">
+                            <input class="btn" id="fileupload" type="file" name="" >
+                            <span id="arrayOne">
+                              {each list as index}
+                              <i class="icon-chevron-right icon-white"></i>
+                              {/each}
+                            </span>
+                            <button class="btn btn-primary disabled" id="doConcat" disabled>合并文件</button>
+                            <span id="arrayTwo">
+                              {each list as index}
+                              <i class="icon-chevron-right icon-white"></i>
+                              {/each}
+                            </span>
+                            <button class="btn btn-primary disabled" id="downloadConcat" disabled>下载文件</button>
+                    </div>
+                    <div class="span12 well">
+                           <h3>文档生成说明(暂定)</h3>
+
+                    </div>
+                </div>
 </script>
+
+
+
+
 <script type="text/html" id="compressView">
        <div class="span3">
                  <div class="well sidebar-nav">
@@ -107,16 +135,32 @@
            </div>
              <div class="span9">
            	<div class="well hint-result" >
-                 <div class="alert alert-success">
-                   <strong>Congratulation!</strong> Without any errors
-               </div>
+                 <h3>压缩文件说明说明</h3>
+                    <p>只需确保在压缩包根路径中有配置文件 package.json 即可,配置文件中有minSrc属性的数组标明需要处理的文件夹(根文件夹不用写),使用json格式书写</p>
+                    <p class="lead indent">例子:</p>
+                        <code>minSrc:["a","b","c"]</code><br>
+                    表示要处理 文件夹 a, b ,c 和根文件夹(如果有的话)的文件
+
            	</div>
            </div>
 
 </script>
+
+
+
 <script type="text/html" id="buildView">
-      <h1>dd{ con}</h1>
+dfadfasf
+
+
+
+
 </script>
+
+
+
+
+
+
 <script type="text/html" id="jsonEditorView">
     <div class="container">
         <div class="span12 well" >
@@ -132,6 +176,11 @@
     </div>
     </div>
 </script>
+
+
+
+
+
 
 
 <script type="text/html" id="docView">

@@ -67,7 +67,52 @@
       <h1>bb{ con}</h1>
 </script>
 <script type="text/html" id="compressView">
-      <h1>cc{ con}</h1>
+       <div class="span3">
+                 <div class="well sidebar-nav">
+                  <form id="compressRuleForm">
+                   <ul class="nav nav-list hintConfig-nav">
+                     <li class="nav-header"><a href="#" target="">压缩规则</a></li>
+
+                     {each list}
+                     <li><label class="checkbox"><input type="checkbox" name="{$index}"
+                        {if $value == true}
+                         checked
+                           {/if}
+                     >{$index}</label></li>
+
+                       {/each}
+                   </ul>
+                   </form>
+                 </div><!--/.well -->
+           </div>
+
+           <div class="span9">
+           	<div class="well">
+           		<div id="compressContainer">
+           			<input id="fileupload" type="file" name="" >
+           		<span id="arrayOne">
+                  {each tmpList as index}
+                       <i class="icon-chevron-right icon-white"></i>
+                   {/each}
+                </span>
+           			<button class="btn btn-primary disabled" id="doCompress"  disabled>压缩文件</button>
+                <span id="arrayTwo">
+                      {each tmpList as index}
+                           <i class="icon-chevron-right icon-white"></i>
+                       {/each}
+                </span>
+                    <button class="btn btn-primary disabled" id="downloadCompress"  disabled>下载文件</button>
+           		</div>
+           	</div>
+           </div>
+             <div class="span9">
+           	<div class="well hint-result" >
+                 <div class="alert alert-success">
+                   <strong>Congratulation!</strong> Without any errors
+               </div>
+           	</div>
+           </div>
+
 </script>
 <script type="text/html" id="buildView">
       <h1>dd{ con}</h1>

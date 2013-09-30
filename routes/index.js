@@ -18,7 +18,11 @@ module.exports = function(app, domain) {
 	});
 
 	app.post(domain + "/jsHint", function(req, res) {
+        console.log(req.body.sid);
+        console.log(req.body.rule);
+
 		common.swapCP("./modules/hint", [req.body.sid, req.body.rule], function(result) {
+            console.log(result.data);
 			socket.emitEvent(req.body.socketId, "finishJsHint", result.data);
 		});
 		res.end();
@@ -30,7 +34,11 @@ module.exports = function(app, domain) {
 	app.get(domain + "/concat", function(req, res) {
 		res.end();
 	});
-	app.get(domain + "/compress", function(req, res) {
+	app.post(domain + "/compress", function(req, res) {
+
+        common.swapCP("./modules/compress",[req.body.sid,req.body.rule],function(result){
+            socket.emitEvent(req.body.socketId,"finishCompress");
+        });
 		res.end();
 	});
 	app.get(domain + "/download", function(req, res) {

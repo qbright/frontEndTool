@@ -2,7 +2,6 @@ define(function(require, exports, module) {
 	var common = require("./common");
 	module.exports = {
 		init: function() {
-			var _this = this;
 			var callback = function(response) {
 				var tmp = [];
 					tmp.length = 15;
@@ -24,7 +23,7 @@ define(function(require, exports, module) {
 						var data = {
 							sid: common.getSid(),
 							socketId: common.getSocketId(),
-							rule: _this.getJsonQuery()
+							rule:common.getJsonQuery($("#jsHintRuleForm input"))
 						};
 						common.ajaxRequest("jsHint", data, "post");
 					});
@@ -40,15 +39,6 @@ define(function(require, exports, module) {
 				config: "hintDefaultConfig"
 			}, "get", "json", callback);
 
-		},
-		getJsonQuery: function() {
-			var jsonObj = {};
-			$("#jsHintRuleForm input").each(function() {
-				var $this = $(this);
-				jsonObj[$this.attr("name")] = Boolean($this.prop("checked"));
-			});
-			console.log(jsonObj);
-			return JSON.stringify(jsonObj);
 		}
 	};
 });

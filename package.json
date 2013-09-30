@@ -16,6 +16,10 @@
     "jshint":"*",
     "doxmate":"*",
     "grunt-contrib-imagemin":"*",
-    "imagemin":"*"
+    "imagemin":"*",
+    "foreach":"*",
+    "uglify-js":"*",
+    "mkdirp":"*",
+    "rmdir":"*"
   }
 }

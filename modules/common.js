@@ -104,7 +104,13 @@ module.exports = {
 			cb && cb(result);
 		})
 
-	}
+	},
+    getJsonFromFile:function(path){
+       var jsonString = fs.readFileSync(path).toString();
+        return JSON.parse(jsonString);
+    }
+
+
 };
 
 
@@ -220,3 +226,4 @@ function cpRmToWorkspace(tempPath, rename, folderName) {
 	var dspath = path.join(WORKSPACE_PATH, folderName, rename);
 	fs.rename(tempPath, dspath);
 }
+

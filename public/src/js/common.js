@@ -70,6 +70,20 @@ define(function(require, exports, module) {
 					this_.progressStart();
 				}
 			});
-		}
+		},
+        getJsonQuery:function(target){
+            var jsonObj = {};
+            if(target.each){
+                target.each(function() {
+                    var $this = $(this);
+                    jsonObj[$this.attr("name")] = Boolean($this.prop("checked"));
+                });
+                console.log(jsonObj);
+                return JSON.stringify(jsonObj);
+            }else{
+                return {};
+            }
+
+        }
 	};
 });

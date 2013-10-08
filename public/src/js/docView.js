@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 		init:function(){
 			seajs.log("docView");
 			var tmp = [];
-			tmp.length = 15;
+			tmp.length = 10;
 			var data = {
 				list:tmp
 			}

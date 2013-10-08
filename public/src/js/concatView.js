@@ -3,10 +3,21 @@ define(function(require, exports, module) {
 	module.exports = {
 		init:function(){
 			seajs.log("concat");
+           var  example =' <code> "concat":[</code><br>\
+                <code>  {</code><br>                \
+                <code>  "src":["options==.js","cd/options.js"],</code><br>\
+                    <code>  "dist":"abc/options.concat.js"</code><br>      \
+                        <code>  },</code><br>                               \
+                            <code>  {</code><br>                             \
+                                <code>  "src":["ab/1.js","ab/b.js","ab/c/1.js"],</code><br>\
+                                    <code>  "dist":"def/concat.mininini.js"</code><br>      \
+                                        <code>  }</code><br>                                 \
+                                <code>  ]</code><br>';
             var tmp = [];
             tmp.length = 15;
             var data = {
-                list:tmp
+                list:tmp,
+                example:example
             }
 			common.render("concatView",$("#main_container"),data,function(){
                 common.initUpload($("#fileupload"), "file-upload", function() {

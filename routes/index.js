@@ -28,11 +28,14 @@ module.exports = function(app, domain) {
 		res.end();
 	});
 	app.get(domain + "/build", function(req, res) {
-		//res.download("frontEndTool.zip");
+        common.swapCP("./modules/build",[req.query.sid,req.query.rule],function(result){
+           console.log(result) ;
+           socket.emitEvent(req.query.socketId,"finishBuild");
+        });
+        res.end();
 
 	});
 	app.get(domain + "/concat", function(req, res) {
-        console.log("concat");
         common.swapCP("./modules/concat",[req.query.sid],function(result){
             console.log(result);
             socket.emitEvent(req.query.socketId,"finishConcat");
@@ -40,7 +43,6 @@ module.exports = function(app, domain) {
 		res.end();
 	});
 	app.post(domain + "/compress", function(req, res) {
-
         common.swapCP("./modules/compress",[req.body.sid,req.body.rule],function(result){
             socket.emitEvent(req.body.socketId,"finishCompress");
         });

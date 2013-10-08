@@ -13,7 +13,6 @@ define(function(require, exports, module) {
 					common.progressEnd();
 				});
 			});
-
 			socket.on("finishJsDoc",function(){
 				$("#arrayTwo i").each(function(index){
 					$($("#arrayTwo i")[index]).removeClass("icon-white");
@@ -21,7 +20,6 @@ define(function(require, exports, module) {
 				$("#downloadDoc").attr("disabled", false).removeClass("disabled");
 				common.progressEnd();
 			});
-
             socket.on("finishCompress",function(){
                 $("#arrayTwo i").each(function(index){
                     $($("#arrayTwo i")[index]).removeClass("icon-white");
@@ -29,7 +27,6 @@ define(function(require, exports, module) {
                 $("#downloadCompress").attr("disabled", false).removeClass("disabled");
                 common.progressEnd();
             });
-
             socket.on("finishConcat",function(){
                 $("#arrayTwo i").each(function(index){
                     $($("#arrayTwo i")[index]).removeClass("icon-white");
@@ -37,9 +34,13 @@ define(function(require, exports, module) {
                 $("#downloadConcat").attr("disabled", false).removeClass("disabled");
                 common.progressEnd();
             });
-
-
-
+            socket.on("finishBuild",function(){
+                $("#arrayTwo i").each(function(index){
+                    $($("#arrayTwo i")[index]).removeClass("icon-white");
+                });
+                $("#downloadBuild").attr("disabled",false).removeClass("disabled");
+                common.progressEnd();
+            });
 		},
 		cleanSocket:function(socket){
 			socket.emit("cleanSocket",{socketId:common.getSocketId()});

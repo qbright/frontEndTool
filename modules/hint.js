@@ -21,4 +21,3 @@ process.send({
 	status: true,
 	data: hintResults
 });
-process.exit(0);

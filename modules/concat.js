@@ -17,7 +17,6 @@ var fs = require("fs"),
     buildPath = path.join(workSpacePath,BUILD_PATH),
     configPath = path.join(workSpacePath,"package.json"),
     STATUS_CODE = 0;
-console.log(configPath);
 if(fs.existsSync(configPath) && common.getJsonFromFile(configPath).concat){
     var concatSet = common.getJsonFromFile(configPath).concat;
     foreach(concatSet,function(config){

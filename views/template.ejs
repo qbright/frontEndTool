@@ -85,7 +85,10 @@
                             <button class="btn btn-primary disabled" id="downloadConcat" disabled>下载文件</button>
                     </div>
                     <div class="span12 well">
-                           <h3>文档生成说明(暂定)</h3>
+                           <h3>合并规则说明(暂定)</h3>
+                                <p>只需确保在压缩包根路径中有配置文件 package.json 即可,配置文件中有concat属性的数组标明需要处理的文件夹(根文件夹不用写),使用json格式书写</p>
+                                <p class="lead indent">例子:</p>
+                        {=example}
 
                     </div>
                 </div>
@@ -135,7 +138,7 @@
            </div>
              <div class="span9">
            	<div class="well hint-result" >
-                 <h3>压缩文件说明说明</h3>
+                 <h3>压缩文件说明</h3>
                     <p>只需确保在压缩包根路径中有配置文件 package.json 即可,配置文件中有minSrc属性的数组标明需要处理的文件夹(根文件夹不用写),使用json格式书写</p>
                     <p class="lead indent">例子:</p>
                         <code>minSrc:["a","b","c"]</code><br>
@@ -143,22 +146,54 @@
 
            	</div>
            </div>
-
 </script>
-
-
 
 <script type="text/html" id="buildView">
-dfadfasf
 
+    <div class="span3">
+        <div class="well sidebar-nav">
+            <form id="buildRuleForm">
+                <ul class="nav nav-list hintConfig-nav">
+                    <li class="nav-header"><a href="#" target="">构建项目</a></li>
 
+                    <li><label class="checkbox"><input type="checkbox" name="concat" checked>合并
+                       </label></li>
+                    <li><label class="checkbox"><input type="checkbox" name="compress" checked>压缩
+                    </label></li>
+                    <li><label class="checkbox"><input type="checkbox" name="doc" checked>文档
+                    </label></li>
 
+                </ul>
+    </form>
+    </div><!--/.well -->
+    </div>
 
+    <div class="span9">
+        <div class="well">
+            <div id="">
+                <input id="fileupload" type="file" name="" >
+           		<span id="arrayOne">
+                  {each list as index}
+                       <i class="icon-chevron-right icon-white"></i>
+                   {/each}
+                </span>
+                <button class="btn btn-primary disabled" id="doBuild"  disabled>构建</button>
+                <span id="arrayTwo">
+                      {each list as index}
+                           <i class="icon-chevron-right icon-white"></i>
+                       {/each}
+                </span>
+                <button class="btn btn-primary disabled" id="downloadBuild"  disabled>下载文件</button>
+            </div>
+        </div>
+    </div>
+    <div class="span9">
+        <div class="well hint-result" >
+            <h3>压缩文件说明</h3>
+
+        </div>
+    </div>
 </script>
-
-
-
-
 
 
 <script type="text/html" id="jsonEditorView">
@@ -176,12 +211,6 @@ dfadfasf
     </div>
     </div>
 </script>
-
-
-
-
-
-
 
 <script type="text/html" id="docView">
    <div class="container">
@@ -228,5 +257,4 @@ dfadfasf
                     </p>
         </div>
     </div>
-
 </script>

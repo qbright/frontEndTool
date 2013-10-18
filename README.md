@@ -5,6 +5,7 @@ frontEndTool
 
 - @BUG `websocket` 在连接前关闭？？  //猜测是由于使用 多线程 `socket.io` 产生的同步问题
 - @BUG `doxmate` 集成后默认模板无法 生成代码 // 由于模板文件选项中无 `outputSourceFiles`选项
+- @BUG `clean` 方法后如果使用后退按钮会导致找不到文件夹bug
 
 ===============
 安装方法：
